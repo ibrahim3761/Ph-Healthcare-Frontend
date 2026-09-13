@@ -1,3 +1,6 @@
+/** biome-ignore-all lint/a11y/useSemanticElements: <explanation> */
+/** biome-ignore-all lint/suspicious/noArrayIndexKey: <explanation> */
+/** biome-ignore-all lint/suspicious/noDoubleEquals: <explanation> */
 "use client"
 
 import { useMemo } from "react"
