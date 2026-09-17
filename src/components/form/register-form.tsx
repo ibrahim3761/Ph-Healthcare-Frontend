@@ -19,6 +19,7 @@ import { patientRegistrationSchema } from "@/validation";
 import z from "zod";
 import { useRegistration } from "@/hooks";
 import { toast } from "../ui/toast";
+import { Spinner } from "../ui/spinner";
 
 export function RegisterForm() {
   const router = useRouter();
@@ -28,14 +29,15 @@ export function RegisterForm() {
   type PatientDefaultValues = z.infer<typeof patientRegistrationSchema>;
 
   const defaultValues: PatientDefaultValues = {
-    name: "Ibrahim",
-    email: "mdibrahimabdullah21@gmail.com",
+    name: "Mir",
+    email: "mir@gmail.com",
     contactNumber: "01912345678",
     password: "@User123456",
     confirmPassword: "@User123456",
   };
 
-  const { mutate: registration } = useRegistration();
+  const { mutate: registration, isPending: registrationPending } =
+    useRegistration();
 
   const form = useForm({
     defaultValues,
@@ -262,7 +264,15 @@ export function RegisterForm() {
             }}
           </form.Field>
 
-          <Button type="submit">Submit</Button>
+          <Button disabled={registrationPending} type="submit">
+            {registrationPending ? (
+              <>
+                <Spinner /> submitting
+              </>
+            ) : (
+              "Submit"
+            )}
+          </Button>
         </FieldGroup>
       </form>
 
