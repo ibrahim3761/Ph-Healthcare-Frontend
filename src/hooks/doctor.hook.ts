@@ -1,4 +1,4 @@
-import { applyAsDoctor } from "@/api/doctor.api";
+import { applyAsDoctor } from "@/api";
 import { useMutation } from "@tanstack/react-query";
 
 export function useApplyAsDoctor() {
