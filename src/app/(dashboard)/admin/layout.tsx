@@ -1,7 +1,13 @@
-export default function layout() {
+import { ReactNode } from "react";
+
+export default function layout({
+  children,
+}: {
+  children: ReactNode;
+}) {
   return (
     <div>
-      <h1>This is layout</h1>
+      Admin Layout{children}
     </div>
   );
 }
