@@ -1,4 +1,6 @@
+/** biome-ignore-all lint/a11y/useValidAriaRole: <explanation> */
 import RoleGuard from "@/components/auth/role-guard";
+import DashboardShell from "@/components/dashboard/dashboard-shell";
 import { ReactNode } from "react";
 
 export default function layout({
@@ -8,7 +10,9 @@ export default function layout({
 }) {
   return (
     <RoleGuard roles={["ADMIN","SUPER_ADMIN"]}>
-      Admin Layout{children}
+      <DashboardShell role="ADMIN">
+        {children}
+      </DashboardShell>
     </RoleGuard>
   );
 }
