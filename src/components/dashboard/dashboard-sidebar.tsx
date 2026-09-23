@@ -29,15 +29,18 @@ const sidebarRoutes: Partial<Record<UserRole, SidebarItems>> = {
 
 export function DashboardSidebar({ role }: { role: UserRole }) {
     const pathname = usePathname();
-    const routes : SidebarItems = sidebarRoutes[role] || [];
+    const routes: SidebarItems = sidebarRoutes[role] || [];
 
     return (
         <Sidebar >
             <SidebarHeader>
-                <div className="flex items-center gap-2">
-                    <Logo />
-                    <span>PH Healthcare</span>
-                </div>
+                <Link href="/">
+                    <div className="flex items-center gap-2">
+                        <Logo />
+                        <span>PH Healthcare</span>
+                    </div>
+                </Link>
+
             </SidebarHeader>
             <SidebarContent>
                 {routes.map((item) => (
@@ -47,8 +50,8 @@ export function DashboardSidebar({ role }: { role: UserRole }) {
                             <SidebarMenu>
                                 {item.items.map((item) => (
                                     <SidebarMenuItem key={item.title}>
-                                        <SidebarMenuButton render={<Link href={item.url}/>} isActive={pathname===item.url}>
-                                           {item.title}
+                                        <SidebarMenuButton render={<Link href={item.url} />} isActive={pathname === item.url}>
+                                            {item.title}
                                         </SidebarMenuButton>
                                     </SidebarMenuItem>
                                 ))}

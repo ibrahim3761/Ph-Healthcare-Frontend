@@ -4,6 +4,7 @@ import Logo from "@/assets/svg/Logo";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/toast";
 import { useGetMe, useLogout } from "@/hooks/auth.hook";
+import { UserRole } from "@/types";
 import { useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 
@@ -14,19 +15,28 @@ export default function Header() {
     { name: "About us", url: "/about-us" },
   ];
 
-  const {data, isLoading} = useGetMe();
-  const {mutate: logout} = useLogout();
+  const dashboardRoutes : Record<UserRole,string >={
+    SUPER_ADMIN : "/admin",
+    ADMIN : "/admin",
+    DOCTOR : "/doctor",
+    PATIENT : "/patient"
+  }
+
+  const { data, isLoading } = useGetMe();
+  const { mutate: logout } = useLogout();
   const queryClient = useQueryClient();
+
+  const role : UserRole= !!data?.data && data?.data?.role;
 
   const handleLogout = () => {
     logout(undefined, {
-      onSuccess:()=>{
+      onSuccess: () => {
         toast.add({
           title: "Logout Success",
           description: "You have been logged out",
           type: "success",
         });
-        queryClient.removeQueries({queryKey: ["user"]});
+        queryClient.removeQueries({ queryKey: ["user"] });
       },
       onError: (err) => {
         toast.add({
@@ -37,7 +47,7 @@ export default function Header() {
       }
     })
   }
-  
+
 
   return (
     <header className="w-full h-16 border border-b">
@@ -52,6 +62,11 @@ export default function Header() {
               {route.name}
             </Link>
           ))}
+          {role && (
+            <Link href={dashboardRoutes[role]}>
+              Dashboard
+            </Link>
+          )}
         </nav>
         <div>
           {!isLoading && !data && (
@@ -60,16 +75,16 @@ export default function Header() {
               render={<Link href="/login">Login</Link>}
               nativeButton={false}
             >
-            Login
-          </Button>)}
+              Login
+            </Button>)}
           {!isLoading && data && (
             <Button
               variant="destructive"
               onClick={handleLogout}
-              
+
             >
-            Logout
-          </Button>)}
+              Logout
+            </Button>)}
         </div>
       </div>
     </header>
