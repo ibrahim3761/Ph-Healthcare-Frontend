@@ -1,3 +1,4 @@
+import RoleGuard from "@/components/auth/role-guard";
 import { ReactNode } from "react";
 
 export default function layout({
@@ -6,8 +7,8 @@ export default function layout({
   children: ReactNode;
 }) {
   return (
-    <div>
+    <RoleGuard roles={["ADMIN","SUPER_ADMIN"]}>
       Admin Layout{children}
-    </div>
+    </RoleGuard>
   );
 }
