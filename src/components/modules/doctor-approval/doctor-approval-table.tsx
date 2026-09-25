@@ -48,12 +48,13 @@ export default function DoctorApprovalTable({
               </TableCell>
               <TableCell>{doctor.specialization}</TableCell>
               <TableCell className="text-right">
-                <Button
+                {doctor.user.emailVerified ? (<Button
                   variant="outline"
                   onClick={() => handleReview(doctor.id)}
+                  disabled={doctor.verificationStatus !== "PENDING"}
                 >
                   Review
-                </Button>
+                </Button>):(<Button disabled variant="outline">Not verified</Button>)}
               </TableCell>
             </TableRow>
           ))}
