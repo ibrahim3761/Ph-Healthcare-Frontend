@@ -54,7 +54,7 @@ export default function CreateScheduleForm({
           handleClose();
         },
         onError: (err) => {
-          toast.add({
+          toast.add({ 
             title: "Schedule creation failed",
             description:
               err.message || "Something went wrong. Please try again",
